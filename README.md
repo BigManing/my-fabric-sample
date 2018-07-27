@@ -1,7 +1,7 @@
 [//]: # (SPDX-License-Identifier: CC-BY-4.0)
 
 ## Hyperledger Fabric Samples
-
+实验各种场景方案使用
 Please visit the [installation instructions](http://hyperledger-fabric.readthedocs.io/en/latest/install.html)
 to ensure you have the correct prerequisites installed. Please use the
 version of the documentation that matches the version of the software you
