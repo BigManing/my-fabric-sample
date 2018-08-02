@@ -221,21 +221,34 @@ peer:
         pvtData:
             # pullRetryThreshold determines the maximum duration of time private data corresponding for a given block
             # would be attempted to be pulled from peers until the block would be committed without the private data
+
+            # pullRetryThreshold确定尝试从peer中提取给定块的私有数据的最大持续时间，直到在没有私有数据的情况下提交块为止(提交了块临时数据就没了)
             pullRetryThreshold: 60s
+            
             # As private data enters the transient store, it is associated with the peer's ledger's height at that time.
             # transientstoreMaxBlockRetention defines the maximum difference between the current ledger's height upon commit,
             # and the private data residing inside the transient store that is guaranteed not to be purged.
             # Private data is purged from the transient store when blocks with sequences that are multiples
             # of transientstoreMaxBlockRetention are committed.
+            
+            #　其他解释：在提交之前，peer将私有数据存储在本地临时数据存储中。事务提交时，此数据会自动清除。
+            # 但是，如果事务从未提交到channel，则私有数据将保留在每个peer的临时存储中。
+            # 通过使用peercore.yaml文件中的peer.gossip.pvtData.transientstoreMaxBlockRetention属性，
+            # 在可配置的数量块之后，从临时存储中清除此数据。
             transientstoreMaxBlockRetention: 1000
+            
             # pushAckTimeout is the maximum time to wait for an acknowledgement from each peer
             # at private data push at endorsement time.
+            # 在背书时推送给其他peer节点私有数据时，等待确认回复的最长时间
             pushAckTimeout: 3s
+            
             # Block to live pulling margin, used as a buffer
             # to prevent peer from trying to pull private data
             # from peers that is soon to be purged in next N blocks.
             # This helps a newly joined peer catch up to current
             # blockchain height quicker.
+
+            # 缓冲10个块后　私有数据才被清除，照顾新加入的peer
             btlPullMargin: 10
 
     # EventHub related configuration
